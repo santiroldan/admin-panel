@@ -1,0 +1,25 @@
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="toolbar">
+        <mat-icon (click)="snav.toggle()">menu</mat-icon>
+        <h1>Admin Panel App</h1>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav class="sidenav" #snav (opened)="isMenuOpened = true" (closed)="isMenuOpened = false" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+            fixedTopGap="56">
+            <mat-nav-list class="list">
+                <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">
+                    <mat-icon fontIcon="home"></mat-icon>
+                    {{nav}}
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="sidenav-content" [style.width]="!isMenuOpened ? 'calc(100% - 20px)' : 'calc(100% - 220px)'">
+            <mat-card class="card">Simple card</mat-card>
+            <mat-card class="card">Simple card</mat-card>
+            <mat-card class="card">Simple card</mat-card>
+            <mat-card class="card">Simple card</mat-card>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
