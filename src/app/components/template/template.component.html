@@ -5,21 +5,37 @@
     </mat-toolbar>
 
     <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav class="sidenav" #snav (opened)="isMenuOpened = true" (closed)="isMenuOpened = false" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-            fixedTopGap="56">
+        <mat-sidenav class="sidenav" #snav (opened)="isMenuOpened = true" (closed)="isMenuOpened = false"
+            [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
             <mat-nav-list class="list">
                 <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">
-                    <mat-icon fontIcon="home"></mat-icon>
-                    {{nav}}
+                    <mat-icon [attr.fontIcon]="nav.icon"></mat-icon>
+                    <span>{{nav.text}}</span>
                 </a>
             </mat-nav-list>
         </mat-sidenav>
 
-        <mat-sidenav-content class="sidenav-content" [style.width]="!isMenuOpened ? 'calc(100% - 20px)' : 'calc(100% - 220px)'">
-            <mat-card class="card">Simple card</mat-card>
-            <mat-card class="card">Simple card</mat-card>
-            <mat-card class="card">Simple card</mat-card>
-            <mat-card class="card">Simple card</mat-card>
+        <mat-sidenav-content class="sidenav-content"
+            [style.justify-content]="mobileQuery.matches ? 'center': 'flex-start'"
+            [style.width]="isMenuOpened && !mobileQuery.matches? 'calc(100% - 200px)' : '100%'">
+            <mat-card class="card">
+                <canvas baseChart width="100%" height="100%" [data]="lineChartData" [options]="lineChartOptions"
+                    [type]="lineChartType" (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+            </mat-card>
+            <mat-card class="card">
+                <canvas baseChart width="100%" height="100%" [data]="doughnutChartData"
+                    [type]="doughnutChartType"></canvas>
+            </mat-card>
+            <mat-card class="card">
+                <canvas baseChart width="100%" height="100%" [data]="radarChartData" [options]="radarChartOptions"
+                    [type]="radarChartType"></canvas>
+            </mat-card>
+            <mat-card class="card">
+                <canvas baseChart width="100%" height="100%" [data]="polarAreaChartData" [legend]="polarAreaLegend"
+                    [type]="polarAreaChartType">
+                </canvas>
+            </mat-card>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
